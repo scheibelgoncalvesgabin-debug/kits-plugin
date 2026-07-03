@@ -16,6 +16,9 @@ premiumkits:
 # Enable detailed debug logging (useful for troubleshooting)
 debug: false
 
+# Language — available: en, fr (add your own file in plugins/PremiumKits/lang/)
+language: en
+
 # ─── Offline mode (no panel) ──────────────────────────────────────────────
 # When "enabled: false" above, the plugin automatically loads every .yml
 # file in plugins/PremiumKits/kits/. Each file = one kit.

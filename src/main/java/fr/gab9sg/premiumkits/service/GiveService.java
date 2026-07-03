@@ -108,7 +108,7 @@ public class GiveService {
             // Deduct cost
             if (eco != null && cond.cost > 0) {
                 eco.withdrawPlayer(player, cond.cost);
-                player.sendMessage(colorize("&aYou paid &6$" + String.format("%.0f", cond.cost) + "&a for this kit."));
+                player.sendMessage(plugin.getLang().get("kit-cost-paid", "cost", String.format("%.0f", cond.cost)));
             }
         }
 

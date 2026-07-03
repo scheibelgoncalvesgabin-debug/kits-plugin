@@ -16,23 +16,23 @@ public class KitCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("\u00a7cPlayers only."); return true;
+            sender.sendMessage(plugin.getLang().getRaw("players-only")); return true;
         }
         if (!player.hasPermission("premiumkits.use")) {
-            player.sendMessage(c("&8[&6PK&8] &cYou don't have permission.")); return true;
+            plugin.getLang().send(player, "no-permission"); return true;
         }
 
         // /kit reload
         if (args.length > 0 && args[0].equalsIgnoreCase("reload") && player.hasPermission("premiumkits.admin")) {
             plugin.reload();
-            player.sendMessage(c("&8[&6PK&8] &aPlugin reloaded! &7(" + plugin.getKitRegistry().size() + " kits)"));
+            plugin.getLang().send(player, "plugin-reloaded", "amount", String.valueOf(plugin.getKitRegistry().size()));
             return true;
         }
 
         // /kit random
         if (args.length > 0 && args[0].equalsIgnoreCase("random")) {
             GiveService.Result r = plugin.getRandomKitService().giveRandom(player);
-            if (r == GiveService.Result.NO_KIT) player.sendMessage(c("&8[&6PK&8] &cAucun kit disponible."));
+            if (r == GiveService.Result.NO_KIT) plugin.getLang().send(player, "random-no-kits");
             return true;
         }
 
@@ -42,21 +42,21 @@ public class KitCommand implements CommandExecutor {
             return true;
         }
 
-        // /kit <id> [player]
+        // /kit <id> [player] — admin give
         if (args.length >= 1 && player.hasPermission("premiumkits.admin")) {
             String kitId = args[0];
             Player target = args.length >= 2 ? plugin.getServer().getPlayer(args[1]) : player;
-            if (target == null) { player.sendMessage(c("&cPlayer not found.")); return true; }
+            if (target == null) { plugin.getLang().send(player, "player-not-found"); return true; }
             GiveService.Result r = plugin.getGiveService().give(target, kitId, true);
-            if (r == GiveService.Result.NO_KIT) player.sendMessage(c("&cKit '" + kitId + "' not found."));
-            else if (r == GiveService.Result.SUCCESS) player.sendMessage(c("&aGave kit &e" + kitId + "&a to &e" + target.getName()));
+            if (r == GiveService.Result.NO_KIT)
+                plugin.getLang().send(player, "kit-not-found", "kit", kitId);
+            else if (r == GiveService.Result.SUCCESS)
+                plugin.getLang().send(player, "kit-gave-admin", "kit", kitId, "player", target.getName());
             return true;
         }
 
-        // /kit — open menu
+        // /kit — open GUI
         plugin.getPlayerKitMenuGUI().open(player);
         return true;
     }
-
-    private String c(String s) { return s.replace("&", "\u00a7"); }
 }

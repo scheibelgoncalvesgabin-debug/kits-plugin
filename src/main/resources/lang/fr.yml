@@ -1,0 +1,59 @@
+# PremiumKits — Fichier de langue français
+# Codes couleur : & suivi d'un code (0-9, a-f, k-o, r)
+# Variables : {player}, {kit}, {cooldown}, {cost}, {amount}, {remaining}
+
+prefix: "&8[&6PK&8] "
+
+# ─── Général ──────────────────────────────────────────────────────────────
+players-only: "&cCette commande est réservée aux joueurs."
+no-permission: "&cVous n'avez pas la permission de faire cela."
+player-not-found: "&cJoueur introuvable."
+plugin-reloaded: "&aPlugin rechargé ! &7({amount} kits chargés)"
+
+# ─── Résultats de give ────────────────────────────────────────────────────
+kit-not-found: "&cKit '{kit}' introuvable."
+kit-disabled: "&cCe kit est actuellement désactivé."
+kit-no-access: "&cVous n'avez pas accès à ce kit."
+kit-cooldown: "&eCe kit est en cooldown : &c{cooldown}"
+kit-one-time: "&cVous avez déjà reçu ce kit unique."
+kit-min-level: "&cVotre niveau est insuffisant."
+kit-min-money: "&cVous n'avez pas assez d'argent."
+kit-cost-fail: "&cVous ne pouvez pas vous offrir ce kit &7($&c{cost}&7)."
+kit-placeholder-fail: "&cVous ne remplissez pas les conditions requises."
+kit-world-mismatch: "&cCe kit n'est pas disponible dans ce monde."
+kit-error: "&cImpossible de donner le kit."
+kit-cost-paid: "&aVous avez payé &6${cost} &apour ce kit."
+kit-gave-admin: "&aKit &e{kit} &adonné à &e{player}&a."
+kit-no-kits: "&cAucun kit disponible pour vous."
+
+# ─── Aléatoire / mystère ─────────────────────────────────────────────────
+random-no-kits: "&cAucun kit aléatoire disponible."
+random-selected: "&7🎲 Kit aléatoire : &e{kit}"
+mystery-incoming: "&7❓ Un kit mystère arrive..."
+
+# ─── Labels du GUI ────────────────────────────────────────────────────────
+gui-title: "&6&lPremiumKits &8» &7{amount} kit(s)"
+gui-access-everyone: "&7👥 Tout le monde"
+gui-access-group: "&d🏷 {group}"
+gui-access-permission: "&e🔑 {permission}"
+gui-access-player: "&b👤 Personnel"
+gui-access-world: "&a🌍 {worlds}"
+gui-available: "&a✔ Disponible !"
+gui-click-receive: "&eClic gauche &7→ Recevoir"
+gui-click-preview: "&eClic droit &7→ Aperçu"
+gui-cooldown-line: "&c⏳ Cooldown : &e{cooldown}"
+gui-conditions-fail: "&c✖ Conditions non remplies"
+gui-preview: "&eAperçu : &f{kit} &8(&7{amount} items&8)"
+
+# ─── File d'attente ───────────────────────────────────────────────────────
+queue-full: "&eInventaire plein — kit mis en file d'attente !"
+queue-hint: "&7Libérez de la place pour le recevoir automatiquement."
+queue-delivered: "&aKit en attente livré : &e{kit}"
+queue-remaining: "&7{amount} kit(s) encore en attente."
+
+# ─── Kill streak / revanche ───────────────────────────────────────────────
+revenge-received: "&eKit de consolation reçu !"
+
+# ─── Kit automatique ──────────────────────────────────────────────────────
+auto-join-received: "&aBienvenue ! Vous avez reçu un kit de connexion."
+auto-region-received: "&aVous avez reçu un kit pour être entré dans cette zone."

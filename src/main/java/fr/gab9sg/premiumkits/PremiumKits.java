@@ -7,6 +7,7 @@ import fr.gab9sg.premiumkits.hooks.WorldGuardHook;
 import fr.gab9sg.premiumkits.listeners.KitListener;
 import fr.gab9sg.premiumkits.listeners.KillStreakListener;
 import fr.gab9sg.premiumkits.managers.KitRegistry;
+import fr.gab9sg.premiumkits.managers.LangManager;
 import fr.gab9sg.premiumkits.service.CustomItemService;
 import fr.gab9sg.premiumkits.service.GiveService;
 import fr.gab9sg.premiumkits.service.RandomKitService;
@@ -21,6 +22,7 @@ public class PremiumKits extends JavaPlugin {
     private static PremiumKits instance;
 
     private KitRegistry      kitRegistry;
+    private LangManager      langManager;
     private GiveService      giveService;
     private CustomItemService customItemService;
     private PanelHook        panelHook;
@@ -48,6 +50,7 @@ public class PremiumKits extends JavaPlugin {
 
         // Core
         kitRegistry      = new KitRegistry(this);
+        langManager      = new LangManager(this);
         customItemService = new CustomItemService(this);
         giveService      = new GiveService(this);
         playerKitMenuGUI = new PlayerKitMenuGUI(this);
@@ -88,6 +91,7 @@ public class PremiumKits extends JavaPlugin {
 
     public void reload() {
         reloadConfig();
+        langManager.load();
         if (panelHook != null) panelHook.reload();
         else if (offlineKitLoader != null) offlineKitLoader.loadAll();
     }
@@ -95,6 +99,7 @@ public class PremiumKits extends JavaPlugin {
     // Getters
     public static PremiumKits getInstance() { return instance; }
     public KitRegistry       getKitRegistry()       { return kitRegistry; }
+    public LangManager       getLang()               { return langManager; }
     public GiveService       getGiveService()        { return giveService; }
     public CustomItemService getCustomItemService()  { return customItemService; }
     public PanelHook         getPanelHook()          { return panelHook; }

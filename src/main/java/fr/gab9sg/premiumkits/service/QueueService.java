@@ -25,8 +25,8 @@ public class QueueService implements Listener {
 
     public void queue(Player player, String kitId) {
         queued.computeIfAbsent(player.getUniqueId(), u -> new LinkedList<>()).add(kitId);
-        player.sendMessage("\u00a78[\u00a76PK\u00a78] \u00a7eInventaire plein \u2014 kit mis en file d'attente !");
-        player.sendMessage("\u00a78[\u00a76PK\u00a78] \u00a77Lib\u00e8re de la place pour le recevoir automatiquement.");
+        plugin.getLang().send(player, "queue-full");
+        plugin.getLang().send(player, "queue-hint");
     }
 
     @EventHandler
@@ -52,10 +52,10 @@ public class QueueService implements Listener {
 
         GiveService.Result result = plugin.getGiveService().give(player, kitId, true);
         if (result == GiveService.Result.SUCCESS) {
-            player.sendMessage("\u00a78[\u00a76PK\u00a78] \u00a7aKit en attente livr\u00e9: \u00a7e" + kit.getName());
+            plugin.getLang().send(player, "queue-delivered", "kit", kit.getName());
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.8f, 1.2f);
             if (!q.isEmpty()) {
-                player.sendMessage("\u00a78[\u00a76PK\u00a78] \u00a77" + q.size() + " kit(s) encore en attente.");
+                plugin.getLang().send(player, "queue-remaining", "amount", String.valueOf(q.size()));
             }
         }
     }

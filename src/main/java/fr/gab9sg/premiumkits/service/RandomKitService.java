@@ -45,7 +45,7 @@ public class RandomKitService {
             int weight = (w instanceof Number n) ? n.intValue() : Math.max(1, 10 + kit.getPriority());
             cumulative += weight;
             if (roll < cumulative) {
-                player.sendMessage("\u00a78[\u00a76PK\u00a78] \u00a77\uD83C\uDFB2 Kit al\u00e9atoire: \u00a7e" + kit.getName());
+                player.sendMessage(plugin.getLang().get("random-selected", "kit", kit.getName()));
                 return plugin.getGiveService().give(player, kit.getId(), false);
             }
         }
@@ -58,7 +58,7 @@ public class RandomKitService {
      * Give a mystery kit (hidden — player doesn't know what they'll get).
      */
     public GiveService.Result giveMystery(Player player) {
-        player.sendMessage("\u00a78[\u00a76PK\u00a78] \u00a77\u2753 Kit myst\u00e8re en approche...");
+        player.sendMessage(plugin.getLang().get("mystery-incoming"));
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             if (player.isOnline()) giveRandom(player);
         }, 40L);

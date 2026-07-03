@@ -38,7 +38,7 @@ public class KillStreakListener implements Listener {
                     plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
                         if (victim.isOnline()) {
                             plugin.getGiveService().give(victim, kitId, true);
-                            victim.sendMessage("\u00a78[\u00a76PK\u00a78] \u00a7eConsolation kit received!");
+                            plugin.getLang().send(victim, "revenge-received");
                         }
                     }, 60L);
                 }

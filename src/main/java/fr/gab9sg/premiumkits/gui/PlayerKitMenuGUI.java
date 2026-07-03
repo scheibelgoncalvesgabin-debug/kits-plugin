@@ -26,12 +26,12 @@ public class PlayerKitMenuGUI {
         List<Kit> kits = plugin.getKitRegistry().getAccessibleKits(player);
 
         if (kits.isEmpty()) {
-            player.sendMessage("\u00a78[\u00a76PK\u00a78] \u00a7cNo kits available for you.");
+            plugin.getLang().send(player, "kit-no-kits");
             return;
         }
 
         int size = Math.min(54, Math.max(9, ((kits.size()-1)/9+1)*9));
-        String title = TITLE_PREFIX + kits.size() + " kit(s)";
+        String title = plugin.getLang().getRaw("gui-title", "amount", String.valueOf(kits.size()));
         Inventory inv = Bukkit.createInventory(null, size, title);
 
         Map<Integer, String> map = new HashMap<>();
@@ -142,7 +142,7 @@ public class PlayerKitMenuGUI {
 
         if (right) {
             // Preview — open preview GUI
-            player.sendMessage("\u00a78[\u00a76PK\u00a78] \u00a7ePreview: \u00a7f" + kit.getName() + " \u00a78(\u00a77" + kit.getItems().size() + " items\u00a78)");
+            player.sendMessage(plugin.getLang().get("gui-preview", "kit", kit.getName(), "amount", String.valueOf(kit.getItems().size())));
             // TODO: open preview inventory if needed
             return;
         }
@@ -153,19 +153,19 @@ public class PlayerKitMenuGUI {
 
         switch (result) {
             case SUCCESS -> player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.6f, 1.4f);
-            case DISABLED       -> player.sendMessage(c("&8[&6PK&8] &cThis kit is disabled."));
-            case NO_PERMISSION  -> player.sendMessage(c("&8[&6PK&8] &cYou don't have access to this kit."));
+            case DISABLED       -> plugin.getLang().send(player, "kit-disabled");
+            case NO_PERMISSION  -> plugin.getLang().send(player, "kit-no-access");
             case COOLDOWN       -> {
                 long rem = plugin.getGiveService().getRemainingCooldown(player, kitId);
-                player.sendMessage(c("&8[&6PK&8] &eKit on cooldown: &c" + GiveService.formatCooldown(rem)));
+                plugin.getLang().send(player, "kit-cooldown", "cooldown", GiveService.formatCooldown(rem));
             }
-            case ONE_TIME       -> player.sendMessage(c("&8[&6PK&8] &cYou already received this one-time kit."));
-            case MIN_LEVEL      -> player.sendMessage(c("&8[&6PK&8] &cYou don't meet the minimum level."));
-            case MIN_MONEY      -> player.sendMessage(c("&8[&6PK&8] &cYou don't have enough money."));
-            case COST_FAIL      -> player.sendMessage(c("&8[&6PK&8] &cYou can't afford this kit ($" + (int)kit.getConditions().cost + ")."));
-            case PLACEHOLDER_FAIL -> player.sendMessage(c("&8[&6PK&8] &cYou don't meet the required conditions."));
-            case WORLD_MISMATCH -> player.sendMessage(c("&8[&6PK&8] &cThis kit is not available in this world."));
-            default -> player.sendMessage(c("&8[&6PK&8] &cCould not give kit."));
+            case ONE_TIME       -> plugin.getLang().send(player, "kit-one-time");
+            case MIN_LEVEL      -> plugin.getLang().send(player, "kit-min-level");
+            case MIN_MONEY      -> plugin.getLang().send(player, "kit-min-money");
+            case COST_FAIL      -> plugin.getLang().send(player, "kit-cost-fail", "cost", String.valueOf((int)kit.getConditions().cost));
+            case PLACEHOLDER_FAIL -> plugin.getLang().send(player, "kit-placeholder-fail");
+            case WORLD_MISMATCH -> plugin.getLang().send(player, "kit-world-mismatch");
+            default -> plugin.getLang().send(player, "kit-error");
         }
     }
 
