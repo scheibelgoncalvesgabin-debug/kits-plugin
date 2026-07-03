@@ -1,0 +1,45 @@
+# ╔════════════════════════════════════════════════════════════════════╗
+# ║                    PREMIUMKITS — CONFIGURATION                       ║
+# ║  If you do NOT use the web panel, you can create kits directly       ║
+# ║  in the plugins/PremiumKits/kits/ folder.                            ║
+# ║  See the full example in kits/example_kit.yml                       ║
+# ╚════════════════════════════════════════════════════════════════════╝
+
+# ─── Web panel connection (optional) ─────────────────────────────────────
+# If "enabled: false", the plugin only reads local YAML files from the
+# kits/ folder — useful if you don't want to use the web panel at all.
+premiumkits:
+  enabled: false
+  api-key: "YOUR_API_KEY_HERE"
+  url: "https://vertex-panel-kits.onrender.com"
+
+# Enable detailed debug logging (useful for troubleshooting)
+debug: false
+
+# ─── Offline mode (no panel) ──────────────────────────────────────────────
+# When "enabled: false" above, the plugin automatically loads every .yml
+# file in plugins/PremiumKits/kits/. Each file = one kit.
+# See kits/example_kit.yml for the full commented syntax.
+offline-mode:
+  auto-reload: true
+  watch-interval: 10
+
+# ─── Kill Streak ──────────────────────────────────────────────────────────
+# Gives a bonus kit after X consecutive kills without dying
+killstreak:
+  enabled: false
+  threshold: 5              # kills required
+  kit-id: ""                # ID of the kit to give (see kits/example_kit.yml)
+  broadcast: true
+  broadcast-message: "&6[PK] &e{player} &7is on a &c{kills} kill streak!"
+
+# ─── Revenge kit ───────────────────────────────────────────────────────────
+# Gives a consolation kit after X consecutive deaths
+revenge:
+  enabled: false
+  threshold: 3               # deaths required
+  kit-id: ""                 # ID of the consolation kit
+
+# ─── Anti-spam ──────────────────────────────────────────────────────────────
+# Prevents a player from spam-clicking to receive the same kit multiple
+# times in under 1.5 seconds. Always active, cannot be disabled.

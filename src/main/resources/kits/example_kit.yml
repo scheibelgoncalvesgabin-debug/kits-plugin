@@ -1,0 +1,175 @@
+# ╔════════════════════════════════════════════════════════════════════╗
+# ║         EXAMPLE KIT — USABLE WITHOUT THE WEB PANEL                   ║
+# ║  Copy this file, rename it (e.g. kit_vip.yml), and edit it.          ║
+# ║  Every .yml file in this folder = one independent kit.               ║
+# ║  The file name (without .yml) is used as the internal kit ID.        ║
+# ╚════════════════════════════════════════════════════════════════════╝
+
+# ─── General info ─────────────────────────────────────────────────────────
+id: "kit_vip_example"        # unique kit identifier (used in /kit <id>)
+name: "&6&lVIP Kit"           # display name (& color codes supported)
+description: "Exclusive kit for VIP players"
+enabled: true                 # true/false to enable/disable the kit
+icon: "DIAMOND_SWORD"         # item shown as icon in menus
+priority: 50                  # higher = checked first if multiple kits match
+
+# ─── ACCESS — who can receive this kit ───────────────────────────────────
+# Available types: EVERYONE, GROUP, PERMISSION, PLAYER, WORLD
+access:
+  type: GROUP
+
+  # For type GROUP — one or more LuckPerms groups
+  groups: ["vip", "mvp"]
+  group-logic: OR             # OR = any single group is enough, AND = all required
+
+  # For type PERMISSION — one or more permission nodes
+  # permissions: ["premiumkits.kit.vip"]
+  # perm-logic: AND           # AND = all required, OR = any single one is enough
+
+  # For type PLAYER — a specific player's UUID
+  # player: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+  # For type WORLD — list of worlds where the kit is active
+  # worlds: ["ffa_sword", "lobby"]
+
+# ─── CONDITIONS — when the player can receive it ─────────────────────────
+conditions:
+  cooldown-seconds: 86400     # 24h cooldown (0 = no cooldown)
+  min-level: 0                 # minimum XP level required
+  min-money: 0                 # minimum balance required (Vault)
+  cost: 0                      # amount deducted on receive (Vault)
+  one-time: false              # true = can only ever be received once
+  worldguard-region: ""        # required WorldGuard region name (optional)
+  requires-preview-accept: false  # true = player must confirm before receiving
+
+  # Activation dates (event kit) — leave empty for no restriction
+  # Format: "2026-12-24T00:00:00" (ISO local time)
+  event-start: ""
+  event-end: ""
+
+  # PlaceholderAPI checks — add as many as you want, evaluated in order
+  # logic: AND (default) or OR to chain with the previous condition
+  placeholder-checks:
+    - placeholder: "%vault_balance%"
+      operator: ">="
+      value: "1000"
+      logic: "AND"
+    # - placeholder: "%player_level%"
+    #   operator: ">="
+    #   value: "10"
+    #   logic: "AND"
+
+# ─── ACTIONS — what happens when the kit is received ─────────────────────
+actions:
+  # Command executed by the console in addition to giving the items
+  # Variables: %player% %uuid% %kit_id% %kit_count% %player_balance% %player_streak%
+  on-receive-command: ""       # e.g. "give %player% diamond 1"
+
+  # Custom message sent to the player (replaces the default message)
+  custom-message: "&aYou received your &6VIP Kit&a!"
+
+  # Message broadcast to the whole server (leave empty to disable)
+  broadcast: ""                # e.g. "&6{player} &7received the &eVIP Kit&7!"
+
+  # Sound played to the player
+  sound: "ENTITY_PLAYER_LEVELUP"
+  sound-volume: 1.0
+  sound-pitch: 1.2
+
+  # Particle effect shown around the player
+  particle: ""                 # e.g. "FIREWORKS_SPARK"
+  particle-count: 20
+  particle-color: "#FF0000"    # only used for the DUST particle
+
+# ─── TAGS — special behaviors ──────────────────────────────────────────────
+tags:
+  auto-join: false             # true = given automatically on player join
+  auto-region: false           # true = given when entering worldguard-region
+  weight: 100                  # weight for /kit random (higher = more likely)
+  no-random: false             # true = excluded from /kit random
+  mystery: false                # true = items hidden until received
+
+# ─── ITEMS — kit contents ───────────────────────────────────────────────────
+# Slot numbering:
+#   0-8   = hotbar
+#   9-35  = main inventory
+#   36    = boots
+#   37    = leggings
+#   38    = chestplate
+#   39    = helmet
+#   40    = off-hand
+#
+# Custom items from MythicMobs / ItemsAdder / Oraxen are also supported —
+# use the meta keys below instead of "type" + enchants/potion:
+#   meta.mythic-id: "MythicItemInternalName"
+#   meta.itemsadder-id: "namespace:item_id"
+#   meta.oraxen-id: "oraxen_item_id"
+items:
+  "0":
+    type: DIAMOND_SWORD
+    amount: 1
+    meta:
+      display-name: "&6&lLegendary Sword"
+      lore:
+        - "&7A blade forged in fire"
+        - "&8VIP Edition"
+      enchant-glow: true
+      custom-model-data: 1001   # requires a resource pack
+      enchants:
+        - id: sharpness
+          level: 5
+        - id: unbreaking
+          level: 3
+        - id: mending
+          level: 1
+
+  "1":
+    # Example: MythicMobs custom item instead of a vanilla item
+    # type: STONE                 # ignored when mythic-id is set
+    # meta:
+    #   mythic-id: "ExcaliburSword"
+    # Example: ItemsAdder
+    # meta:
+    #   itemsadder-id: "namespace:item_id"
+    # Example: Oraxen
+    # meta:
+    #   oraxen-id: "oraxen_item_id"
+    type: AIR
+    amount: 0
+
+  "8":
+    type: SPLASH_POTION
+    amount: 3
+    meta:
+      potion-effect: STRENGTH
+      potion-amplifier: 1       # 0 = level I, 1 = level II, etc.
+      potion-duration: 180      # in seconds
+      potion-particles: true
+
+  "36":
+    type: DIAMOND_BOOTS
+    amount: 1
+  "37":
+    type: DIAMOND_LEGGINGS
+    amount: 1
+  "38":
+    type: DIAMOND_CHESTPLATE
+    amount: 1
+    meta:
+      enchants:
+        - id: protection
+          level: 4
+  "39":
+    type: DIAMOND_HELMET
+    amount: 1
+  "40":
+    type: SHIELD
+    amount: 1
+
+# ╔════════════════════════════════════════════════════════════════════╗
+# ║  USEFUL COMMANDS TO TEST THIS KIT WITHOUT THE PANEL:                 ║
+# ║  /kit kit_vip_example              → gives the kit (admin)           ║
+# ║  /kit kit_vip_example <player>     → gives it to another player      ║
+# ║  /kit                              → player menu (based on access)   ║
+# ║  /kit reload                       → reloads all kit files           ║
+# ╚════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,31 @@
+name: PremiumKits
+version: '2.0.0'
+main: fr.gab9sg.premiumkits.PremiumKits
+api-version: '1.21'
+description: Premium kit management plugin with web panel
+
+authors: [gab9sg]
+
+depend: []
+softdepend: [Vault, LuckPerms, PlaceholderAPI, WorldGuard, MythicMobs, ItemsAdder, Oraxen]
+
+commands:
+  kit:
+    description: Open the kit menu or give a kit
+    usage: /kit [kitId] [player]
+    aliases: [kits, premiumkit, pk]
+    permission: premiumkits.use
+
+permissions:
+  premiumkits.use:
+    description: Open the kit menu
+    default: true
+  premiumkits.admin:
+    description: Admin commands (reload, give to others)
+    default: op
+  premiumkits.bypass.cooldown:
+    description: Bypass kit cooldowns
+    default: op
+  premiumkits.bypass.conditions:
+    description: Bypass all kit conditions
+    default: op
